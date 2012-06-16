@@ -1,0 +1,244 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="StackRep.Phone.UI.View.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Wp7nl_Behaviors="clr-namespace:StackRep.Phone.UI.Behaviors;assembly=StackRep.Phone.UI"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:Converters="clr-namespace:StackRep.Phone.UI.Converters" mc:Ignorable="d" FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="True" d:DesignHeight="696" d:DesignWidth="480"
+    DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <i:Interaction.Behaviors>
+        <Wp7nl_Behaviors:DialogMessageBehavior
+            Token="Authorize"
+            Message="StackRep requires access to your StackOverflow account. Do you want to authorize it?"
+            Caption="Authorization"
+            Buttons="OKCancel" />
+
+        <Wp7nl_Behaviors:DialogMessageBehavior
+            Token="NoInternetConnection"
+            Message="No internet connection. Could not load data."
+            Caption="Error"
+            Buttons="OK" />
+    </i:Interaction.Behaviors>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        
+        <Grid.Resources>
+            <Converters:ChangeConverter x:Key="ChangeConverter" />
+            <Converters:BadgeConverter x:Key="BadgeConverter" />
+        </Grid.Resources>
+        
+        <!--Pivot Control-->
+        <controls:Pivot Name="Pivot" 
+                        Title="STACKREP" 
+                        HorizontalAlignment="Left" 
+                        Width="480"
+                        SelectionChanged="Pivot_SelectionChanged">
+            <!--Pivot item one-->
+            <controls:PivotItem Header="Profile">                    
+                <Grid x:Name="ProfilePanel" Background="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>   
+                        
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0"  Height="30" Margin="12,0,0,0" HorizontalAlignment="Left" Name="labelDisplayName" Text="Name" VerticalAlignment="Top" />
+                    <TextBlock Grid.Row="0" Grid.Column="1"  Height="30" HorizontalAlignment="Left" Name="DisplayName" Width="Auto" VerticalAlignment="Top" Text="{Binding User.DisplayName, Mode=OneWay}" />
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="0"  Height="30" Margin="12,0,0,0" HorizontalAlignment="Left" Name="labelReputation" Text="Reputation" VerticalAlignment="Top" />
+                    <TextBlock Grid.Row="1" Grid.Column="1"  Height="30" HorizontalAlignment="Left" Name="Reputation" Width="Auto" VerticalAlignment="Top" Text="{Binding User.Reputation, Mode=OneWay}" />
+                    
+                    <TextBlock Grid.Row="2" Grid.Column="0"  Height="30" Margin="12,0,0,0" HorizontalAlignment="Left" Name="labelViews" Text="Views" VerticalAlignment="Top" />
+                    <TextBlock Grid.Row="2" Grid.Column="1"  Height="30" HorizontalAlignment="Left" Name="Views" Width="Auto" VerticalAlignment="Top" Text="{Binding User.Views, Mode=OneWay}" />
+                    
+                    <TextBlock Grid.Row="3" Grid.Column="0"  Height="30" Margin="12,0,0,0" HorizontalAlignment="Left" Name="labelLastSeen" Text="Last seen" VerticalAlignment="Top" />
+                    <TextBlock Grid.Row="3" Grid.Column="1"  Height="30" HorizontalAlignment="Left" Name="LastSeen" Width="Auto" VerticalAlignment="Top" Text="{Binding User.LastAccessDate, Mode=OneWay}" />
+                    
+                    <TextBlock Grid.Row="4" Grid.Column="0"  Height="30" Margin="12,0,0,0" HorizontalAlignment="Left" Name="labelWebsite" Text="Website" VerticalAlignment="Top" />
+                    <TextBlock Grid.Row="4" Grid.Column="1"  Height="30" HorizontalAlignment="Left" Name="Website" Width="Auto" VerticalAlignment="Top" Text="{Binding User.Website, Mode=OneWay}" />
+                    
+                    <TextBlock Grid.Row="5" Grid.Column="0"  Height="30" Margin="12,0,0,0" HorizontalAlignment="Left" Name="labelLocation" Text="Location" VerticalAlignment="Top" />
+                    <TextBlock Grid.Row="5" Grid.Column="1"  Height="30" HorizontalAlignment="Left" Name="Location" Width="Auto" VerticalAlignment="Top" Text="{Binding User.Location, Mode=OneWay}" />
+                    
+                    <TextBlock Grid.Row="6" Grid.Column="0"  Height="30" Margin="12,0,0,0" HorizontalAlignment="Left" Name="labelAge" Text="Age" VerticalAlignment="Top" />
+                    <TextBlock Grid.Row="6" Grid.Column="1"  Height="30" HorizontalAlignment="Left" Name="Age" Width="Auto" VerticalAlignment="Top" Text="{Binding User.Age, Mode=OneWay}" />
+                    
+                    <TextBlock Grid.Row="7" Grid.Column="0"  Height="30" Margin="12,0,0,0" HorizontalAlignment="Left" Name="labelBadges" Text="Badges" VerticalAlignment="Top" />
+                   
+                    <Grid Grid.Row="7" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="22" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />                            
+                        </Grid.RowDefinitions>
+                        <Image Grid.Column="0" Grid.Row="0" Height="10" Margin="0,5,0,0" HorizontalAlignment="Center" Name="GoldBadgeImage" Stretch="Fill" VerticalAlignment="Center" Width="10" Source="/StackRep.Phone.UI;component/Images/gold-badge.png" />
+                        <TextBlock Grid.Column="1" Grid.Row="0" Name="GoldBadges" Width="Auto" Text="{Binding User.BadgeCounts.Gold, Mode=OneWay}" />
+                        
+                        <Image Grid.Column="0" Grid.Row="1" Height="10" Margin="0,5,0,0" HorizontalAlignment="Center" Name="SilverBadgeImage" Stretch="Fill" VerticalAlignment="Center" Width="10" Source="/StackRep.Phone.UI;component/Images/silver-badge.png" />
+                        <TextBlock Grid.Column="1" Grid.Row="1" Name="SilverBadges" Width="Auto" Text="{Binding User.BadgeCounts.Silver, Mode=OneWay}" />
+                        
+                        <Image Grid.Column="0" Grid.Row="2" Height="10" Margin="0,5,0,0" HorizontalAlignment="Center" Name="BronzeBadgeImage" Stretch="Fill" VerticalAlignment="Center" Width="10" Source="/StackRep.Phone.UI;component/Images/bronze-badge.png" />
+                        <TextBlock Grid.Column="1" Grid.Row="2" Name="BronzeBadges" Width="Auto" Text="{Binding User.BadgeCounts.Bronze, Mode=OneWay}" />
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="Reputation">                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="No data found."                               
+                               Margin="15,0,0,0" 
+                               Visibility="Collapsed"
+                               Grid.Row="0" 
+                               Grid.Column="0">
+                        <i:Interaction.Behaviors>
+                            <Wp7nl_Behaviors:VisibilityBehaviour HasItems="{Binding HasReputation}" />
+                        </i:Interaction.Behaviors>
+                    </TextBlock>
+
+                    <ListBox Name="ReputationList" 
+                             Grid.Row="0" 
+                             Grid.Column="0"
+                             Margin="0,0,0,0" 
+                             ItemsSource="{Binding ReputationChanges}" 
+                             SelectionChanged="ReputationList_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Column="0" TextWrapping="Wrap" 
+                                           Text="{Binding Change, StringFormat='+#;-#;0'}"
+                                           Foreground="{Binding Change, Converter={StaticResource ChangeConverter}}" />
+                                    <TextBlock Grid.Column="2" TextWrapping="Wrap" Text="{Binding Title}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
+            
+            <controls:PivotItem Header="Badges">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="No data found."                               
+                               Margin="15,0,0,0" 
+                               Visibility="Collapsed"
+                               Grid.Row="0" 
+                               Grid.Column="0">
+                        <i:Interaction.Behaviors>
+                            <Wp7nl_Behaviors:VisibilityBehaviour HasItems="{Binding HasBadges}" />
+                        </i:Interaction.Behaviors>
+                    </TextBlock>
+
+                    <ListBox Name="BadgeList"
+                             Grid.Row="0" 
+                             Grid.Column="0"
+                             Margin="0,0,0,0"
+                             ItemsSource="{Binding Badges}"
+                             SelectionChanged="BadgeList_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Grid.Column="0" 
+                                       Width="10"
+                                       Height="10" 
+                                       Margin="0,5,0,0"                                        
+                                       Stretch="Fill" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" 
+                                       Source="{Binding Rank, Converter={StaticResource BadgeConverter}}" />
+
+                                    <TextBlock Grid.Column="1" TextWrapping="Wrap" 
+                                           Text="{Binding AwardCount, StringFormat='+#;-#;0'}"
+                                           Foreground="{Binding AwardCount, Converter={StaticResource ChangeConverter}}" />
+
+                                    <TextBlock Grid.Column="2" TextWrapping="Wrap" Text="{Binding Name}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
+        </controls:Pivot>
+    </Grid>
+ 
+    <!--Sample code showing usage of ApplicationBar-->
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/Refresh.png" Text="Refresh" Click="refreshButton_Click" />
+            <shell:ApplicationBarIconButton IconUri="/Images/Settings.png" Text="Settings" Click="SettingsClick" />
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="About" Click="AboutClick" />
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator x:Name="ProgressIndicator" 
+                                 IsIndeterminate="true" 
+                                 IsVisible="False">
+            <i:Interaction.Behaviors>
+                <Wp7nl_Behaviors:LoadingBehavior IsLoading="{Binding IsLoading, Mode=OneWay}" />
+            </i:Interaction.Behaviors>
+        </shell:ProgressIndicator>
+    </shell:SystemTray.ProgressIndicator>
+</phone:PhoneApplicationPage>

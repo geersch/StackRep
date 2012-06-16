@@ -1,0 +1,54 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="StackRep.Phone.UI.View.About"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:GalaSoft_MvvmLight_Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP71"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True"
+    DataContext="{Binding About, Source={StaticResource Locator}}">
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Text="STACKREP" Style="{StaticResource PhoneTextNormalStyle}"/>
+        </StackPanel>
+        <Grid Margin="12,6,12,-6" Name="ContentPanel" Grid.Row="1">
+            <TextBlock Height="30" HorizontalAlignment="Center" Margin="0,42,0,0" Name="textBlock1" Text="For Windows Phone 7.5" VerticalAlignment="Top" />
+            <TextBlock Height="30" HorizontalAlignment="Center" Margin="0,78,0,0" Name="textBlock2" Text="Version 1.0" VerticalAlignment="Top" />
+            <TextBlock Height="30" HorizontalAlignment="Center" Margin="0,140,0,0" Name="textBlock3" Text="Questions and suggestions" VerticalAlignment="Top" />
+            <HyperlinkButton Content="geersch@gmail.com" Height="30" HorizontalAlignment="Center" Margin="0,176,0,0" Name="hyperlinkButton1" VerticalAlignment="Top" Width="241">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <GalaSoft_MvvmLight_Command:EventToCommand 
+                            Command="{Binding EmailCommand, Mode=OneWay}" 
+                            CommandParameter="geersch@gmail.com" />
+                    </i:EventTrigger>                    
+                </i:Interaction.Triggers>
+            </HyperlinkButton>
+            
+            <TextBlock Height="30" HorizontalAlignment="Center" Margin="146,660,135,0" Name="textBlock4" Text="© Christophe Geers" VerticalAlignment="Top" />
+            <HyperlinkButton Content="http://cgeers.com" Height="30" HorizontalAlignment="Center" Margin="108,212,107,0" Name="hyperlinkButton2" VerticalAlignment="Top" Width="241">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <GalaSoft_MvvmLight_Command:EventToCommand 
+                            Command="{Binding WebsiteCommand, Mode=OneWay}" 
+                            CommandParameter="http://cgeers.com" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </HyperlinkButton>
+        </Grid>
+    </Grid>
+</phone:PhoneApplicationPage>
